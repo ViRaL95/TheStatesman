@@ -1,0 +1,14 @@
+#hide-1 tr td:nth-child(2), #hide-1 tr td:nth-child(3) {
+	visibility: hidden;
+}
+
+#hide-2 tr td:nth-child(1), #hide-2 tr td:nth-child(3){
+	visibility: hidden;
+}
+
+#hide-3 tr td:nth-child(1), #hide-3 tr td:nth-child(2){
+visibility: hidden;
+}
+#id_of_table{
+	width:300px;
+}
