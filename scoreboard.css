@@ -13,9 +13,10 @@
 	display: none;
 }
 
-table#id_of_table{
+table#hide-1, table#hide-2, table#hide-3{
 	table-layout: fixed;
 	width:320px;
+	border: 2px solid #005a9c;
 }
 
 body{
@@ -28,7 +29,15 @@ thead{
 	font-weight: 
 }
 
-th#Baseball, th#Basketball, th#football {
+th#Baseball, th#Basketball, th#Football {
 	padding: 10px;
 	font-size:15px;
+}
+
+.teams{
+	border: none;
+}
+
+.team{
+	border:none;
 }
