@@ -45,6 +45,8 @@ function hideColumns(sport){
 };
 
 window.onload=function(){
+
 addCellHandlers();	
+
 };
 
