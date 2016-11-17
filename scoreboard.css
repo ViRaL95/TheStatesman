@@ -41,3 +41,7 @@ th#Baseball, th#Basketball, th#Football {
 .team{
 	border:none;
 }
+
+#scoreboard_heading{
+	color:  #005a9c;
+}
