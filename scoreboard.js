@@ -47,6 +47,7 @@ function hideColumns(sport){
 window.onload=function(){
 
 addCellHandlers();	
-
+hideColumns("Basketball");
+hideColumns("Football");
 };
 
