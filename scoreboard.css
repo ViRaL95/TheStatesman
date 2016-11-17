@@ -13,6 +13,22 @@
 	display: none;
 }
 
-#id_of_table{
+table#id_of_table{
+	table-layout: fixed;
 	width:320px;
+}
+
+body{
+	font-family: 'Droid Sans',sans-serif;
+}
+
+thead{
+	background-color: #005a9c;
+	color:white;
+	font-weight: 
+}
+
+th#Baseball, th#Basketball, th#football {
+	padding: 10px;
+	font-size:15px;
 }
