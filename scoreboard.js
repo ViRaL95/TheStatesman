@@ -3,8 +3,7 @@ function addCellHandlers(){
 	//getElementByClassName , get ElementById, and getElementsByTagName could have always been used here 
 	var rows=table.getElementsByTagName("thead");
 	
-	for (i=0;i<1;i++){
-		 row=table.rows[i];
+		 row=table.rows[0];
 		for(j=0; j<3; j++){
 			cell=row.cells[j];
 			if(cell.innerHTML=="Basketball"){
@@ -28,7 +27,7 @@ function addCellHandlers(){
 			}
 		}
 
-	}
+	
 
 };
 
@@ -45,6 +44,7 @@ function hideColumns(sport){
 };
 
 window.onload=function(){
+	table.setAttribute("id","hide-1");
 addCellHandlers();	
 };
 
