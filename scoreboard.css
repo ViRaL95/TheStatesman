@@ -12,9 +12,6 @@
 /*visibility: hidden;*/
 	display: none;
 }
-<<<<<<< HEAD
-#id_of_table{
-=======
 
 table#hide-1, table#hide-2, table#hide-3{
 	table-layout: fixed;
@@ -47,5 +44,4 @@ th#Baseball, th#Basketball, th#Football {
 
 #scoreboard_heading{
 	color:  #005a9c;
->>>>>>> 3ab4c2736ed2692ce50e6b62ac9de9ed4fba8f24
 }
