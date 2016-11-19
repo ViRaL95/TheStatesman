@@ -1,13 +1,51 @@
 #hide-1 tr td:nth-child(2), #hide-1 tr td:nth-child(3) {
-	visibility: hidden;
+/*	visibility: hidden;*/
+	display: none;
 }
 
 #hide-2 tr td:nth-child(1), #hide-2 tr td:nth-child(3){
-	visibility: hidden;
+/*	visibility: hidden;*/
+	display: none;
 }
 
 #hide-3 tr td:nth-child(1), #hide-3 tr td:nth-child(2){
-visibility: hidden;
+/*visibility: hidden;*/
+	display: none;
 }
+<<<<<<< HEAD
 #id_of_table{
+=======
+
+table#hide-1, table#hide-2, table#hide-3{
+	table-layout: fixed;
+	width:320px;
+	border: 2px solid #005a9c;
+}
+
+body{
+	font-family: 'Droid Sans',sans-serif;
+}
+
+thead{
+	background-color: #005a9c;
+	color:white;
+	font-weight: 
+}
+
+th#Baseball, th#Basketball, th#Football {
+	padding: 10px;
+	font-size:15px;
+}
+
+.teams{
+	border: none;
+}
+
+.team{
+	border:none;
+}
+
+#scoreboard_heading{
+	color:  #005a9c;
+>>>>>>> 3ab4c2736ed2692ce50e6b62ac9de9ed4fba8f24
 }

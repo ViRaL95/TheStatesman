@@ -44,7 +44,13 @@ function hideColumns(sport){
 };
 
 window.onload=function(){
+<<<<<<< HEAD
 	table.setAttribute("id","hide-1");
+=======
+
+>>>>>>> 3ab4c2736ed2692ce50e6b62ac9de9ed4fba8f24
 addCellHandlers();	
+hideColumns("Basketball");
+hideColumns("Football");
 };
 

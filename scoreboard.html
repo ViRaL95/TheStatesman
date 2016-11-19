@@ -3,7 +3,10 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="scoreboard.css">
 </head>	
-<table id="id_of_table" border="1">
+<body>
+<h2 id = "scoreboard_heading">SCOREBOARD</h2>
+
+<table id="id_of_table">
 	<thead>
 		<tr>
 			<th id="Baseball">Baseball</th>
@@ -12,16 +15,16 @@
 		</tr>
 	</thead>
 		
-		<tr>
-			<td>Stony Brook Vs Mets 3-0 W </td>
-		 	<td>Stony Brook vs Harvard 91-98 L </td>
-			<td>Stony Brook vs Umich 18-14 W </td>
-		<tr>
+		<tr class = "teams">
+			<td colspan = "3" class = "team">Stony Brook Vs Mets 3-0 W </td>
+		 	<td colspan = "3" class = "team">Stony Brook vs Harvard 91-98 L </td>
+			<td colspan = "3" class = "team">Stony Brook vs Umich 18-14 W </td>
+		</tr>
 
-		<tr>
-			<td> Stony Brook vs Yankees 4-2 </td>
-			<td> Stony Brook vs Miami Heat </td>
-			<td> Stony Brook vs Alabama </td>
+		<tr class = "teams">
+			<td colspan = "3" class = "team"> Stony Brook vs Yankees 4-2 </td>
+			<td colspan = "3" class = "team"> Stony Brook vs Miami Heat </td>
+			<td colspan = "3" class = "team"> Stony Brook vs Alabama </td>
 		</tr>
 </table>
 
@@ -29,4 +32,5 @@
 		<script src="scoreboard.js"></script>
 		<script src="retrieve-data.js"></script>
 <script src="scoreboard.js"> </script>
+</body>
 </html>
