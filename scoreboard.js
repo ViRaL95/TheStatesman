@@ -1,22 +1,21 @@
 var table=document.getElementById("id_of_table");
 function addCellHandlers(){
 	//getElementByClassName , get ElementById, and getElementsByTagName could have always been used here 
-	var rows=table.getElementsByTagName("thead");
+	var rowheader=table.getElementsByTagName("thead");
 	
-	for (i=0;i<1;i++){
-		 row=table.rows[i];
+		 rowheader=table.rows[0];
 		for(j=0; j<3; j++){
-			cell=row.cells[j];
-			if(cell.innerHTML=="Basketball"){
+			cell=rowheader.cells[j];
+			if(cell.innerHTML=="Tennis"){
 				cell.onclick=function(){
-					var sport="Basketball";
+					var sport="Tennis";
 					hideColumns(sport);
 				};
 
 			}
-			if(cell.innerHTML=="Baseball"){
+			if(cell.innerHTML=="Basketball"){
 				cell.onclick=function(){
-				var sport="Baseball";
+				var sport="Basketball";
 				hideColumns(sport);
 				};
 			}
@@ -28,12 +27,12 @@ function addCellHandlers(){
 			}
 		}
 
-	}
+	
 
 };
 
 function hideColumns(sport){
-	if(sport=="Baseball"){
+	if(sport=="Tennis"){
 		table.setAttribute("id","hide-1");
 	}
 	if(sport=="Basketball"){
@@ -44,10 +43,40 @@ function hideColumns(sport){
 	}
 };
 
+	function retrieve_data(){
+	var rows=table.getElementsByTagName("tr");
+	var feed="http://stonybrookathletics.com/calendar.ashx/calendar.rss?sports_id=2";
+	$.get(feed, function(data){
+		var i=0;
+		$(data).find("item").each(function(){
+			var el=$(this);
+			var text=el.text();
+			if(text.includes("Tennis")){
+				i++;
+				var res=text.split(" ");
+				var row=table.insertRow(i);
+				var cell=row.insertCell(0);
+				console.log(text);
+				text=text.split("\n");
+				date=text[4];
+				date=date.split("-");
+				if(date[2].length>2){
+					date[2]=date[2].substring(0,1);
+				}
+				cell.innerHTML=date[1]+("/")+date[2]+("/")+date[0];
+			}
+
+		});
+
+
+	});
+}
+
+
 window.onload=function(){
+table.setAttribute("id","hide-1");
 
 addCellHandlers();	
-hideColumns("Basketball");
-hideColumns("Football");
+retrieve_data();
 };
 
