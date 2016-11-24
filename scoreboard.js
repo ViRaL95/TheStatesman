@@ -8,83 +8,97 @@ function retrieve_data(){
 		var i=0;
 		var j=0;
 		var k=0;
-		var l=0;
 		$(data).find("item").each(function(){
 		//receives text wherever the item tagh occurs 
 			var el=$(this);
 			var text=el.text();
 		//if the text contains the word Tennis in it 
+		
+		if(i==0 && j==0 && k==0){
+			table.insertRow(-1);
+
+		}
+
 			if(text.includes("Tennis")){
-		//each sport has its own row index. Increment row index to find next row 
-		//that needs to be tend to
-				i++;
-
-				//if the row index is greater than the number of rows for j, k and l then you can 
-				//append a new row to the bottom of the table 
-				if(i>j && i>k && i>l){
-					table.insertRow(-1);
-				}
-				rows=table.rows[i];
-				cell0=rows.insertCell(0);
-
 				text=text.split("\n");
-				occurence=setTennisOccurence(text);
-				date=setDateAndTimeTennis(text);
-				 tennis=occurence +" "+date;
-				cell0.innerHTML=tennis; 
+				occurence=setOccurence(text);
+				console.log(text);
+				date=setDateAndTime(text);
+
+
+				if(date!="DONT-RECORD"){
+				i++;
+			     tennis = occurence+" "+date;
+					if(i>j && i>k){
+					 	table.insertRow(-1);
+					}
+					rows=table.rows[i];
+					if(rows.cells[0]!=null){
+						cell0=rows.cells[0]
+						cell0.className="";
+					}
+					else{
+					cell0=rows.insertCell(0);
+					}
+					cell0.innerHTML=tennis;
+				}
 			}
 			
 			if(text.includes("Basketball")){
-				j++;
-				/*
-				if the value of j is greater than the values of k, l and i then you must create a new row. 
-				If the value of j is not greater than the value of k l and i then this row has already been created
-				and we must simply insert teh cell into the respective row. 
-				*/
-				if(j>i&& j>k && j>l){
-				  table.insertRow(-1);
-				}
-				rows=table.rows[j];
-
-				if(rows.cells[0]==null){
-					rows.insertCell(0);
-				}
-				cell1=rows.insertCell(1);
-				if(rows.cells[2]==null){
-					rows.insertCell(2);
-				}
 				text=text.split("\n");
+				occurence=setOccurence(text);
+				date=setDateAndTime(text);
 
-				occurence=setBasketballOccurence(text);
-				date=setDateAndTimeBasketball(text);
 				if(date!="DONT-RECORD"){
+				j++;
 			     basketball= occurence+" "+date;
-				cell1.innerHTML=basketball;
+					if(j>i && j>k){
+					 	table.insertRow(-1);
+					}
+					rows=table.rows[j];
+					
+					if(rows.cells[0]==null){
+						cell0=rows.insertCell(0);
+						cell0.className="empty"
+					}
+					if(rows.cells[1]!=null){
+					cell1=rows.cells[1];
+					cell1.className="";
+					}
+					else{
+						cell1=rows.insertCell(1);
+					}
+
+					cell1.innerHTML=basketball;
 				}
 
 			}
+			
 			if(text.includes("Football")){
-
-				console.log("entered football ");
-
-				k++;
-				if(k>i && k>j && k>l){
-					table.insertRow(-1);
-				}
-				rows=table.rows[k];
-				if(rows.cells[0]==null){
-					rows.insertCell(0);
-				}
-				if(rows.cells[1]==null){
-					rows.insertCell(1);
-				}
-				cell2=rows.insertCell(2);
 				text=text.split("\n");
-				console.log("after split"+text);
-				occurence=setFootballOccurence(text);
-				date=setDateAndTimeFootball(text);
-				football= occurence+" "+date;
-				cell2.innerHTML=football;
+				occurence=setOccurence(text);
+				date=setDateAndTime(text);
+
+				if(date!="DONT-RECORD"){
+				k++;
+			     football= occurence+" "+date;
+					if(k>i &&  k>j){
+					 	table.insertRow(-1);
+					}
+					rows=table.rows[k];
+					if(rows.cells[0]==null){
+						cell0=rows.insertCell(0);
+						cell0.className="empty";
+					}
+					if(rows.cells[1]==null){
+						cell1=rows.insertCell(1);
+						cell1.className="empty";
+					}
+				
+					cell2=rows.insertCell(2);
+
+					cell2.innerHTML=football;
+				}
 		};
 
 
@@ -92,18 +106,37 @@ function retrieve_data(){
 });
 }
 
-function setDateAndTimeTennis(text){
+function setDateAndTime(text){
 date=text[4];
+console.log("text"+text);
 date=date.split("-");
-if(date[2].length>2){
+console.log(date);
 
-	date[2]=date[2].substring(0,1);
+month=date[1];
+if(date[2].length>2){
+	date[2]=date[2].substring(0,2);	
 }
-date=date[1]+("/")+date[2]+("/")+date[0];
+day=date[2];
+year=date[0];
+
+compare=new Date(year, month, day);
+date=month+("/")+day+("/")+year;
+
+var time= new Date();
+
+var timediff=Math.abs(time.getTime()-compare.getTime());
+var diffdays=Math.ceil(timediff/(1000*3600*24));
+
+if(diffdays>120){
+	return "DONT-RECORD";
+}
+
+else{
 return date;
 }
+}
 
-function setTennisOccurence(text){
+function setOccurence(text){
 occurence=text[2];
 if(occurence.includes("[L]")){
 occurence=occurence.substring(occurence.search("[L]")+3, occurence.indexOf('\\'));
@@ -120,75 +153,7 @@ occurence=occurence.substring(0,occurence.indexOf('\\'));
 occurence="Not Played Yet "+occurence;
 return occurence;
 }
-
 }
-function setFootballOccurence(text){
-occurence=text[2];
-if(occurence.includes("[L]")){
-occurence=occurence.substring(occurence.search("[L]")+3, occurence.indexOf('\\'));
-occurence="Loss "+occurence
-return occurence;
-}
-else if(occurence.includes("[W]")){
-occurence=occurence.substring(occurence.search("[W]")+3,occurence.indexOf('\\'));
-occurence="Win "+occurence;
-return occurence;
-}
-else{
-occurence=occurence.substring(0,occurence.indexOf('\\'));
-occurence="Not Played  "+occurence;
-return occurence;
-}
-
-}
-
-function setDateAndTimeFootball(text){
-date=text[4];
-date=date.split("-");
-if(date[2].length>2){
-	date[2]=date[2].substring(0,1);
-}
-date=date[1]+("/")+date[2]+("/")+date[0];
-return date;
-
-}
-
-function setDateAndTimeBasketball(text){
-var date= new Date();
-date=text[4];
-date=date.split("-");
-if(date[2].length>2){
-	date[2]=date[2].substring(0,1);
-}
-date=date[1]+("/")+date[2]+("/")+date[0];
-if (date[1]>date.getMonth()+2|| date[1]<date.getMonth()-2){
-	return "DONT-RECORD";
-}
-else{
-return date;
-}
-}
-
-function setBasketballOccurence(text){
-occurence=text[2];
-if(occurence.includes("[L]")){
-occurence=occurence.substring(occurence.search("[L]")+3, occurence.indexOf('\\'));
-occurence="Loss "+occurence
-return occurence;
-}
-else if(occurence.includes("[W]")){
-occurence=occurence.substring(occurence.search("[W]")+3,occurence.indexOf('\\'));
-occurence="Win "+occurence;
-return occurence;
-}
-else{
-occurence=occurence.substring(0,occurence.indexOf('\\'));
-occurence="Not Played "+occurence;
-return occurence;
-}
-
-}
-
 
 function addCellHandlers(){
 	//getElementByClassName , get ElementById, and getElementsByTagName could have always been used here 
@@ -234,7 +199,7 @@ function hideColumns(sport){
 
 
 window.onload=function(){
-retrieve_data();	
 table.setAttribute("id","hide-1");
+retrieve_data();	
 addCellHandlers();
 };

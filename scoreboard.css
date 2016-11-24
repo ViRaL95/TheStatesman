@@ -15,7 +15,13 @@ visibility: hidden;
 	height: 500px;
 	width:320px;
 }
-
+.empty{
+	border:0 none;
+}
+.scrollit{
+	overflow: scroll;
+	height:100px;
+}
 body{
 	font-family: 'Droid Sans',sans-serif;
 }
@@ -24,6 +30,15 @@ thead{
 	background-color: #005a9c;
 	color:white;
 	font-weight: 
+}
+thead, tbody{
+display: block;
+
+}
+tbody{
+	height:1000px;
+	overflow-y:auto;
+	overflow-x:hidden;  
 }
 
 th#Baseball, th#Basketball, th#Football {
@@ -45,7 +60,7 @@ th#Baseball, th#Basketball, th#Football {
 #id_of_table{
 	border: 1px solid black;
     table-layout: fixed;
-    width: 500px;
+    width: 200px;
 }
 th, td {
     border: 1px solid black;
