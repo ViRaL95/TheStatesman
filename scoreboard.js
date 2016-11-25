@@ -1,6 +1,6 @@
 var table=document.getElementById("id_of_table");
-
-function retrieve_data(){
+var selector=document.getElementById("gender");
+function retrieve_data(gender){
 	var feed="http://stonybrookathletics.com/calendar.ashx/calendar.rss?sports_id=1";
 
 	$.get(feed, function(data){
@@ -19,10 +19,9 @@ function retrieve_data(){
 
 		}
 
-			if(text.includes("Tennis")){
+			if(text.includes("Tennis") && text.includes(gender)){
 				text=text.split("\n");
 				occurence=setOccurence(text);
-				console.log(text);
 				date=setDateAndTime(text);
 
 
@@ -44,7 +43,7 @@ function retrieve_data(){
 				}
 			}
 			
-			if(text.includes("Basketball")){
+			if(text.includes("Basketball") && text.includes(gender)){
 				text=text.split("\n");
 				occurence=setOccurence(text);
 				date=setDateAndTime(text);
@@ -74,7 +73,7 @@ function retrieve_data(){
 
 			}
 			
-			if(text.includes("Football")){
+			if(text.includes("Football") && gender=="Men"){
 				text=text.split("\n");
 				occurence=setOccurence(text);
 				date=setDateAndTime(text);
@@ -99,18 +98,19 @@ function retrieve_data(){
 
 					cell2.innerHTML=football;
 				}
-		};
+
+
+			}
+		});
 
 
 	});
-});
 }
+
 
 function setDateAndTime(text){
 date=text[4];
-console.log("text"+text);
 date=date.split("-");
-console.log(date);
 
 month=date[1];
 if(date[2].length>2){
@@ -195,11 +195,22 @@ function hideColumns(sport){
 	}
 };
 
-
+selector.onchange=function(){
+	temp=document.getElementsByTagName("table");
+	ID=temp.id
+	
+	$("#id_of_table").find("tr:gt(0)").remove();
+	$("#hide-3").find("tr:gt(0)").remove();
+	$("#hide-2").find("tr:gt(0)").remove();
+	$("#hide-1").find("tr:gt(0)").remove();
+	var gender=selector.options[selector.selectedIndex].text;
+	retrieve_data(gender);
+}
 
 
 window.onload=function(){
+retrieve_data("Men")	
 table.setAttribute("id","hide-1");
-retrieve_data();	
 addCellHandlers();
 };
+

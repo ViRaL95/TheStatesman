@@ -13,7 +13,7 @@ visibility: hidden;
 #id_of_table{
 	overflow:auto;
 	height: 500px;
-	width:320px;
+	width:500px;
 }
 .empty{
 	border:0 none;
@@ -46,14 +46,6 @@ th#Baseball, th#Basketball, th#Football {
 	font-size:15px;
 }
 
-.teams{
-	border: none;
-}
-
-.team{
-	border:none;
-}
-
 #scoreboard_heading{
 	color:  #005a9c;
 }
@@ -65,4 +57,14 @@ th#Baseball, th#Basketball, th#Football {
 th, td {
     border: 1px solid black;
     width: 200px;
+}
+td{
+background-color: white;
+color:black;
+}
+select {
+	background-color: #005a9c;
+	color: white;
+	font-size: 16px;
+	border-color: #005a9c;
 }
