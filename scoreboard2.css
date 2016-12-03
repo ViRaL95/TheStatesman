@@ -48,3 +48,8 @@ td {
 .score {
 	text-indent: 20px;
 }
+
+#table_wrapper {
+    height: 200px;
+    overflow: scroll;
+}

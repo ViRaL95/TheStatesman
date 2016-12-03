@@ -5,91 +5,98 @@
 </head>	
 <body>
 <h2 id = "scoreboard_heading">SCOREBOARD</h2>
-
-<table id="id_of_table"	>
-
-
-		<th colspan="2">
-			<form>
-			<select id="gender" onchange="changeOptions()">
-                <option value="Men">Men</option>
-                <option value="Women">Women</option>
-            </select>
-            </form>
-        </th>
-        <th colspan="2">
-        	<form>
-            <select id="sport">
-				<option value="Baseball">Baseball</option>
-				<option value="Basketball">Basketball</option>
-				<option value="Football">Football</option>
-				<option value="Lacrosse">Lacrosse</option>
-				<option value="Soccer">Soccer</option>
-			</select>
-			</form>
-		</th>
+<div id = "table_wrapper">
+	<table id="id_of_table"	>
 
 
-		<tr class = "teams">
-			<td colspan = "1" class = "date">Fri, Nov 18</td>
-			<td colspan = "2" class = "game">SBU vs Boston College</td>
-			<td colspan = "1" class = "score">W, 12-10</td>
-		</tr>
-		<tr class = "teams">
-			<td colspan = "1" class = "date">Tue, Nov 22</td>
-			<td colspan = "2" class = "game">SBU vs Villanova </td>
-			<td colspan = "1" class = "score">W, 3-2</td>
-		</tr>
-		<tr class = "teams">
-			<td colspan = "1" class = "date">Mon, Nov 28</td>
-			<td colspan = "2" class = "game">SBU at Loyola Maryland </td>
-			<td colspan = "1" class = "score">L, 2-4</td>
-		</tr>
-		<tr class = "teams">
-			<td colspan = "1" class = "date">Thu, Dec 1</td>
-			<td colspan = "2" class = "game">SBU at Amherst </td>
-			<td colspan = "1" class = "score">W, 10-8</td>
-		</tr>
-		<tr class = "teams">
-			<td colspan = "1" class = "date">Wed, Dec 7</td>
-			<td colspan = "2" class = "game">SBU at MIT </td>
-			<td colspan = "1" class = "score">L, 6	-8</td>
-		</tr>
-		<tr class = "teams">
-			<td colspan = "1" class = "date">Wed, Dec 7</td>
-			<td colspan = "2" class = "game">SBU at MIT </td>
-			<td colspan = "1" class = "score">L, 6	-8</td>
-		</tr>
-		<tr class = "teams">
-			<td colspan = "1" class = "date">Wed, Dec 7</td>
-			<td colspan = "2" class = "game">SBU at MIT </td>
-			<td colspan = "1" class = "score">L, 6	-8</td>
-		</tr>
-		<tr class = "teams">
-			<td colspan = "1" class = "date">Wed, Dec 7</td>
-			<td colspan = "2" class = "game">SBU at MIT </td>
-			<td colspan = "1" class = "score">L, 6	-8</td>
-		</tr>
-		<tr class = "teams">
-			<td colspan = "1" class = "date">Wed, Dec 7</td>
-			<td colspan = "2" class = "game">SBU at MIT </td>
-			<td colspan = "1" class = "score">L, 6	-8</td>
-		</tr>
-		<tr class = "teams">
-			<td colspan = "1" class = "date">Wed, Dec 7</td>
-			<td colspan = "2" class = "game">SBU at MIT </td>
-			<td colspan = "1" class = "score">L, 6	-8</td>
-		</tr>
-		<tr class = "teams">
-			<td colspan = "1" class = "date">Wed, Dec 7</td>
-			<td colspan = "2" class = "game">SBU at MIT </td>
-			<td colspan = "1" class = "score">L, 6	-8</td>
-		</tr>
+			<thead id = "top">
+			<th colspan="2">
+				<form>
+				<select id="gender" onchange="changeOptions()">
+	                <option value="Men">Men</option>
+	                <option value="Women">Women</option>
+	            </select>
+	            </form>
+	        </th>
+	        <th colspan="2">
+	        	<form>
+	            <select id="sport">
+					<option value="Baseball">Baseball</option>
+					<option value="Basketball">Basketball</option>
+					<option value="Football">Football</option>
+					<option value="Lacrosse">Lacrosse</option>
+					<option value="Soccer">Soccer</option>
+				</select>
+				</form>
+			</th>
+
+			</thead>
+	
+
+				<tbody>
+
+				<tr class = "teams">
+					<td colspan = "1" class = "date">Fri, Nov 18</td>
+					<td colspan = "2" class = "game">SBU vs Boston College</td>
+					<td colspan = "1" class = "score">W, 12-10</td>
+				</tr>
+				<tr class = "teams">
+					<td colspan = "1" class = "date">Tue, Nov 22</td>
+					<td colspan = "2" class = "game">SBU vs Villanova </td>
+					<td colspan = "1" class = "score">W, 3-2</td>
+				</tr>
+				<tr class = "teams">
+					<td colspan = "1" class = "date">Mon, Nov 28</td>
+					<td colspan = "2" class = "game">SBU at Loyola Maryland </td>
+					<td colspan = "1" class = "score">L, 2-4</td>
+				</tr>
+				<tr class = "teams">
+					<td colspan = "1" class = "date">Thu, Dec 1</td>
+					<td colspan = "2" class = "game">SBU at Amherst </td>
+					<td colspan = "1" class = "score">W, 10-8</td>
+				</tr>
+				<tr class = "teams">
+					<td colspan = "1" class = "date">Wed, Dec 7</td>
+					<td colspan = "2" class = "game">SBU at MIT </td>
+					<td colspan = "1" class = "score">L, 6	-8</td>
+				</tr>
+				<tr class = "teams">
+					<td colspan = "1" class = "date">Wed, Dec 7</td>
+					<td colspan = "2" class = "game">SBU at MIT </td>
+					<td colspan = "1" class = "score">L, 6	-8</td>
+				</tr>
+				<tr class = "teams">
+					<td colspan = "1" class = "date">Wed, Dec 7</td>
+					<td colspan = "2" class = "game">SBU at MIT </td>
+					<td colspan = "1" class = "score">L, 6	-8</td>
+				</tr>
+				<tr class = "teams">
+					<td colspan = "1" class = "date">Wed, Dec 7</td>
+					<td colspan = "2" class = "game">SBU at MIT </td>
+					<td colspan = "1" class = "score">L, 6	-8</td>
+				</tr>
+				<tr class = "teams">
+					<td colspan = "1" class = "date">Wed, Dec 7</td>
+					<td colspan = "2" class = "game">SBU at MIT </td>
+					<td colspan = "1" class = "score">L, 6	-8</td>
+				</tr>
+				<tr class = "teams">
+					<td colspan = "1" class = "date">Wed, Dec 7</td>
+					<td colspan = "2" class = "game">SBU at MIT </td>
+					<td colspan = "1" class = "score">L, 6	-8</td>
+				</tr>
+				<tr class = "teams">
+					<td colspan = "1" class = "date">Wed, Dec 7</td>
+					<td colspan = "2" class = "game">SBU at MIT </td>
+					<td colspan = "1" class = "score">L, 6	-8</td>
+				</tr>
+
+				</tbody>
 
 
+	</table>
 
-</table>
-
+</div>
 
 <script src="scoreboard2.js"> </script>
 </body>
