@@ -50,6 +50,8 @@ td {
 }
 
 #table_wrapper {
-    height: 200px;
+    height: 309px;
     overflow: scroll;
+    width: 320px;
+    border-bottom: 2px solid #005a9c;
 }
