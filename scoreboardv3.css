@@ -1,0 +1,65 @@
+#table_wrapper {
+	border: 2px solid #005a9c;
+	float: left;
+}
+
+#tbody {
+	height: 220px;
+	overflow-y: auto;
+}
+
+table{
+	border-collapse: collapse;
+	table-layout: fixed;
+	width:320px;
+	font-size: 12px;
+
+}
+
+#header{
+	background-color: #005a9c;
+	height: 44px;
+	text-align: center;
+}
+
+#header #left {
+	width: 50%;
+	float: left;
+}
+
+
+body{
+	font-family: 'Droid Sans',sans-serif;
+}
+
+select {
+	background-color: #005a9c;
+	color: white;
+	font-size: 16px;
+	border-color: #005a9c;
+}
+
+
+tr:nth-child(even) {
+    background-color: #ccd9ff;
+}
+
+
+td {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+#scoreboard_heading{
+	color:  #005a9c;
+}
+
+.date {
+	text-indent: 7px;
+}
+.game {
+	text-indent: 22px;
+}
+.score {
+	text-indent: 20px;
+}

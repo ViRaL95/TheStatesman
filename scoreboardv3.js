@@ -17,6 +17,4 @@ function changeOptions() {
 			sport.options[i] = new Option(men_sport[i]);
 		}			
 	}
-
-
 }
