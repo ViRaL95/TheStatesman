@@ -2,19 +2,16 @@ var selector=document.getElementById("gender");
 var sport_select=document.getElementById("sport");
 var table=document.getElementsByClassName("table");
 
-var b='';
-console.log("b is"+ !!b);
-
 table=table[0];
 window.onload=function(){
 	populateTable("Baseball","Men");
-document.getElementById("gender").onchange= function(){
+selector.onchange= function(){
 	gender=selector.value;
 	sport=sport_select.value;
 	deleteAllElements();
 	populateTable(sport, gender);
 }	
-document.getElementById("sport").onchange=function(){
+sport.onchange=function(){
 	gender=selector.value;
 	sport=sport_select.value;
 	deleteAllElements();
@@ -58,9 +55,9 @@ var feed="http://stonybrookathletics.com/calendar.ashx/calendar.rss?sports_id=1"
 				if(date!="NA"){
 					i++;
 					//populate the table
-					table.insertRow(-1);
-					row=table.rows[i];
-
+					row=table.insertRow(-1);
+					
+					row.className="teams";
 					cell0=row.insertCell(0);
 					cell0.innerHTML=date;
 					cell0.className="date";
@@ -97,8 +94,8 @@ var feed="http://stonybrookathletics.com/calendar.ashx/calendar.rss?sports_id=1"
 					if(date!="NA"){
 						i++;
 						//populate the table
-						table.insertRow(-1);
-						row=table.rows[i];
+						row=table.insertRow(-1);
+						row.className="teams";
 
 						cell0=row.insertCell(0);
 						cell0.innerHTML=date;

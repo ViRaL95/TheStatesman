@@ -1,43 +1,40 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
+<head>
 	<link rel="stylesheet" type="text/css" href="scoreboard2.css">
-	</head>	
+</head>	
 <body>
 <h2 id = "scoreboard_heading">SCOREBOARD</h2>
+<div class = "table_wrapper">
 
-<table class="table">
-	<thead>
-		<th colspan="3">
-			<form>
+		<div id="header">
+				<form id="left">
 				<select id="gender">
 	                <option value="Men">Men</option>
 	                <option value="Women">Women</option>
 	            </select>
-            </form>
-        </th>
-        <th colspan="3">
-        	<form>
+	            </form>
+
+	        	<form id="right">
 	            <select id="sport">
 					<option value="Baseball">Baseball</option>
 					<option value="Basketball">Basketball</option>
 					<option value="Football">Football</option>
 					<option value="Lacrosse">Lacrosse</option>
 					<option value="Soccer">Soccer</option>
+					<option value="tennis">Tennis</option>
 				</select>
-			</form>
-		</th>
-	</thead>
-<div id="scroll-bar">		
-	<tbody>
-			<tr>
+				</form>
+  		</div>
+		
+		<div id="tbody">			
+			<table class="table">
 
-			</tr>
-	<tbody>
-</div>		
-</table>
+			</table>
+		</div>
+</div>
 
-<script src="http://code.jquery.com/jquery-3.1.1.js"></script>
-<script type="text/javascript "src="scoreboard2.js"></script>
+<script src="jquery-3.1.1.min.js"></script>
+<script src="scoreboardv3.js"> </script>
 </body>
 </html>
