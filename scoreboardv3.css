@@ -13,6 +13,7 @@ table{
 	table-layout: fixed;
 	width:320px;
 	font-size: 12px;
+	border-spacing:5px;
 
 }
 #header{

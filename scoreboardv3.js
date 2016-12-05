@@ -11,7 +11,6 @@ selector.onchange= function(){
 	gender=selector.value;
 	sport=sport_select.value;
 	if(gender=="Women"){
-		console.log("entered women");
 		hideFootball();
 
 	}
@@ -26,7 +25,6 @@ sport.onchange=function(){
 	gender=selector.value;
 	sport=sport_select.value;
 	if(sport=="Football"){
-		console.log("entered football");
 		hideWomen();
 	}
 	
@@ -89,13 +87,10 @@ retrieves data from each element
 				//split the text by new line. 
 				text=text.split("\n");
 				date=setDateAndTime(text);
-				console.log(date);
 				//see what the team has played against
 				player=playedWho(text);
-				console.log(player);
 				//gets whether the team has won or lost
 				WL=getWinOrLoss(text);
-				console.log(WL);
 				if(WL=="NP"){
 				TimeOfGame=getTimeOfGame(text[5]);
 				date+=",";
@@ -128,16 +123,12 @@ retrieves data from each element
 				if(text.includes(sport)&& !text.includes("Women")){
 					//split the text by new line. 
 					text=text.split("\n");
-					console.log(text);
 					date=setDateAndTime(text);
 
-					console.log("date is "+date);
 					//see what the team has played against
 					player=playedWho(text);
-					console.log("player is "+player);
 					//gets whether the team has won or lost
 					WL=getWinOrLoss(text);
-					console.log("WL is "+WL);
 					if(WL="NP"){
 					TimeOfGame=getTimeOfGame(text[5]);
 					date+=",";
@@ -253,7 +244,6 @@ return WL;
 
 function getTimeOfGame(text){
 	time=text.substring(text.indexOf("T")+1,text.indexOf("T")+6);
-	console.log("TIME IS "+time);
 	return time;
 }
 
