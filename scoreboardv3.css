@@ -1,13 +1,11 @@
 .table_wrapper {
 	border: 2px solid #005a9c;
 	float: left;
-	position:relative;
 }
 
 #tbody {
 	height: 220px;
 	overflow-y: auto;
-	position:absolute;
 }
 
 table{
@@ -21,12 +19,10 @@ table{
 	width:320px;
 	background-color: #005a9c;
 	height: 44px;
-	position:relative;
 
 }
 
 #header #left {
-	position:absolute;
 	width: 50%;
 	float: left;
 }

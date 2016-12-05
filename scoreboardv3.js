@@ -1,3 +1,5 @@
+
+
 var selector=document.getElementById("gender");
 var sport_select=document.getElementById("sport");
 var table=document.getElementsByClassName("table");
@@ -8,35 +10,78 @@ window.onload=function(){
 selector.onchange= function(){
 	gender=selector.value;
 	sport=sport_select.value;
+	if(gender=="Women"){
+		console.log("entered women");
+		hideFootball();
+
+	}
+	
+	else{
+		enableFootball();
+	}
 	deleteAllElements();
 	populateTable(sport, gender);
 }	
 sport.onchange=function(){
 	gender=selector.value;
 	sport=sport_select.value;
+	if(sport=="Football"){
+		console.log("entered football");
+		hideWomen();
+	}
+	
+	else{
+		enableWomen();
+	}
+	
 	deleteAllElements();
 	populateTable(sport, gender);
 }
 };
 
-//Deletes All Elements From the Table 
-function deleteAllElements(){
-$(".table").find("tr:gt(0)").remove();
+function hideFootball(){
+var football=document.getElementById("Football");
+football.disabled=true;
 
 }
+function enableFootball(){
+var football=document.getElementById("Football");
+football.disabled=false;
+}
+
+function hideWomen(){
+var women=document.getElementById("Women");
+women.disabled=true;	
+}
+function enableWomen(){
+var women=document.getElementById("Women");
+women.disabled=false;	
+}
+//Deletes All Elements From the Table 
+function deleteAllElements(){
+jQuery(".table").empty();
+
+}
+
 
 //Populate the table with a given sport and a given gender
 function populateTable(sport, gender){
 var feed="http://stonybrookathletics.com/calendar.ashx/calendar.rss?sports_id=1";
 //AJAX
 
+/*
+A get request is sent to the given location specified in the feed variable. When the get function retrieves
+the information, it is stored in the data variable. The data variable is then split into a variable for each 
+item element. The data must then be retrieved from each array element, in order to do this the $(this) function 
+retrieves data from each element
+*/
 	$.get(feed, function(data){
 			var i=0;
 		$(data).find("item").each(function(){
 		//receives text wherever the item tag occurs.
 			var el=$(this);
 			var text=el.text();
-			console.log(text);
+			console.log("text is"+text);
 		//creates row #1 if there are 0 rows. 
 
 		//if the text includes your sport name and gender 
@@ -196,7 +241,6 @@ WL="NP";
 
 return WL;
 }
-
 
 
 
