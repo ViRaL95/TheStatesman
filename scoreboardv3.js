@@ -81,7 +81,6 @@ retrieves data from each element
 		//receives text wherever the item tag occurs.
 			var el=$(this);
 			var text=el.text();
-			console.log("text is"+text);
 		//creates row #1 if there are 0 rows. 
 
 		//if the text includes your sport name and gender 
@@ -97,7 +96,12 @@ retrieves data from each element
 				//gets whether the team has won or lost
 				WL=getWinOrLoss(text);
 				console.log(WL);
-				if(date!="NA"){
+				if(WL=="NP"){
+				TimeOfGame=getTimeOfGame(text[5]);
+				date+=",";
+				date+=TimeOfGame;
+				}
+				if(date!="NA" && player!="NA"){
 					i++;
 					//populate the table
 					row=table.insertRow(-1);
@@ -106,7 +110,7 @@ retrieves data from each element
 					cell0=row.insertCell(0);
 					cell0.innerHTML=date;
 					cell0.className="date";
-					cell0.colspan="1";
+					cell0.colspan="2";
 
 					cell1=row.insertCell(1);
 					cell1.innerHTML=player;
@@ -134,9 +138,13 @@ retrieves data from each element
 					//gets whether the team has won or lost
 					WL=getWinOrLoss(text);
 					console.log("WL is "+WL);
+					if(WL="NP"){
+					TimeOfGame=getTimeOfGame(text[5]);
+					date+=",";
+					date+=TimeOfGame;
+					}
 
-
-					if(date!="NA"){
+					if(date!="NA" && player!="NA"){
 						i++;
 						//populate the table
 						row=table.insertRow(-1);
@@ -145,7 +153,7 @@ retrieves data from each element
 						cell0=row.insertCell(0);
 						cell0.innerHTML=date;
 						cell0.className="date";
-						cell0.colspan="1";
+						cell0.colspan="2";
 
 						cell1=row.insertCell(1);
 						cell1.innerHTML=player;
@@ -167,6 +175,7 @@ retrieves data from each element
 }
 
 function setDateAndTime(text){
+
 date=text[4];
 //SPLIT THE DATE ALONG DASHES
 date=date.split("-");
@@ -199,6 +208,7 @@ return date;
 //FIND OUT WHO IS PLAYING THE CURRENT TEAM IN THE RSS FEED
 function playedWho(text){
 text=text[2]
+
 if(text.includes("[L]")|| text.includes("[W]")){
 	player=text.substring(text.search("[L]")+3, text.indexOf('\\'));
 	return player;
@@ -224,7 +234,6 @@ indices=[];
 	}	
 WL="Loss"+","+WL.substring(indices[0]-3, indices[0]+2);
 }
-
 else if(text.includes("[W]")){
 indices=[];
 	for (i=0; i<WL.length; i++){
@@ -242,7 +251,11 @@ WL="NP";
 return WL;
 }
 
-
+function getTimeOfGame(text){
+	time=text.substring(text.indexOf("T")+1,text.indexOf("T")+6);
+	console.log("TIME IS "+time);
+	return time;
+}
 
 
 
