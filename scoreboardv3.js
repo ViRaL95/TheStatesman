@@ -61,11 +61,11 @@ jQuery(".table").empty();
 
 }
 
-
 //Populate the table with a given sport and a given gender
 function populateTable(sport, gender){
-var feed="http://stonybrookathletics.com/calendar.ashx/calendar.rss?sports_id=1";
+var feed="https://crossorigin.me/http://www.stonybrookathletics.com/calendar.ashx/calendar.rss?sports_id=1";
 //AJAX
+
 
 /*
 A get request is sent to the given location specified in the feed variable. When the get function retrieves
