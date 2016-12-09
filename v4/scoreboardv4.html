@@ -2,6 +2,7 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="scoreboardv4.css">
+	<script src="http://yui.yahooapis.com/3.18.1/build/yui/yui-min.js"></script>
 </head>	
 <body>
 <h2 id = "scoreboard_heading">SCOREBOARD</h2>
@@ -36,6 +37,7 @@
 
 <script>
 
+	//changeOptions() changes the sport dropdown menu depending on gender selected
 	function changeOptions() {
 		var gender = document.getElementById("gender").value;
 		var sport = document.getElementById("sport");
@@ -57,7 +59,17 @@
 		}
 	}
 
+	
+	YUI().use('yql', function(Y){
+		var query = 'select * from rss where url = "https://crossorigin.me/http://www.stonybrookathletics.com/calendar.ashx/calendar.rss?sports_id=1"'
+		var q = Y.YQL(query, function(r){
+			console.log(r)
+		})
+	})
+
+
 
 </script>
+
 </body>
 </html>
