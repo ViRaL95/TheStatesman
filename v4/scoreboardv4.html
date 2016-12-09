@@ -29,66 +29,35 @@
 		<div id="tbody">			
 			<table>
 
-				<tr class = "teams">
-					<td colspan = "1" class = "date">Fri, Nov 18</td>
-					<td colspan = "2" class = "game">SBU vs Boston College</td>
-					<td colspan = "1" class = "score">W, 12-10</td>
-				</tr>
-				<tr class = "teams">
-					<td colspan = "1" class = "date">Tue, Nov 22</td>
-					<td colspan = "2" class = "game">SBU vs Villanova </td>
-					<td colspan = "1" class = "score">W, 3-2</td>
-				</tr>
-				<tr class = "teams">
-					<td colspan = "1" class = "date">Mon, Nov 28</td>
-					<td colspan = "2" class = "game">SBU at Loyola Maryland </td>
-					<td colspan = "1" class = "score">L, 2-4</td>
-				</tr>
-				<tr class = "teams">
-					<td colspan = "1" class = "date">Thu, Dec 1</td>
-					<td colspan = "2" class = "game">SBU at Amherst </td>
-					<td colspan = "1" class = "score">W, 10-8</td>
-				</tr>
-				<tr class = "teams">
-					<td colspan = "1" class = "date">Wed, Dec 7</td>
-					<td colspan = "2" class = "game">SBU at MIT </td>
-					<td colspan = "1" class = "score">L, 6	-8</td>
-				</tr>
-				<tr class = "teams">
-					<td colspan = "1" class = "date">Wed, Dec 7</td>
-					<td colspan = "2" class = "game">SBU at MIT </td>
-					<td colspan = "1" class = "score">L, 6	-8</td>
-				</tr>
-				<tr class = "teams">
-					<td colspan = "1" class = "date">Wed, Dec 7</td>
-					<td colspan = "2" class = "game">SBU at MIT </td>
-					<td colspan = "1" class = "score">L, 6	-8</td>
-				</tr>
-				<tr class = "teams">
-					<td colspan = "1" class = "date">Wed, Dec 7</td>
-					<td colspan = "2" class = "game">SBU at MIT </td>
-					<td colspan = "1" class = "score">L, 6	-8</td>
-				</tr>
-				<tr class = "teams">
-					<td colspan = "1" class = "date">Wed, Dec 7</td>
-					<td colspan = "2" class = "game">SBU at MIT </td>
-					<td colspan = "1" class = "score">L, 6	-8</td>
-				</tr>
-				<tr class = "teams">
-					<td colspan = "1" class = "date">Wed, Dec 7</td>
-					<td colspan = "2" class = "game">SBU at MIT </td>
-					<td colspan = "1" class = "score">L, 6	-8</td>
-				</tr>
-				<tr class = "teams">
-					<td colspan = "1" class = "date">Wed, Dec 7</td>
-					<td colspan = "2" class = "game">SBU at MIT </td>
-					<td colspan = "1" class = "score">L, 6	-8</td>
-				</tr>
 			</table>
 		</div>
 </div>
 
 
-<script src="scoreboard4.js"> </script>
+<script>
+
+	function changeOptions() {
+		var gender = document.getElementById("gender").value;
+		var sport = document.getElementById("sport");
+
+		var men_sport = ['Baseball', 'Basketball', 'Football', 'Lacrosse', 'Soccer'];
+		var women_sport = ['Basketball', 'Lacrosse', 'Soccer', 'Softball', 'Volleyball'];
+
+
+		if(gender=="Women"){
+			for(i=0;i<women_sport.length;i++){
+				sport.options[i] = new Option(women_sport[i]);
+			}
+		}
+
+		if(gender == "Men"){
+			for(i=0;i<men_sport.length;i++){
+				sport.options[i] = new Option(men_sport[i]);
+			}			
+		}
+	}
+
+
+</script>
 </body>
 </html>
