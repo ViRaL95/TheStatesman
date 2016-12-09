@@ -224,7 +224,7 @@ function populateTable(game) {
 	cell3.className = "score";
 	cell3.colSpan = "1";
 
-	cell1.innerHTML = parseDate(game).concat(' ').concat(parseTime(game));
+	cell1.innerHTML = parseDate(game).concat("<br>").concat(parseTime(game));
 	cell2.innerHTML = parseMatch(game);
 	cell3.innerHTML = parseWL(game);
 }
