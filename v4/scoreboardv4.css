@@ -57,11 +57,12 @@ td {
 }
 
 .date {
-	text-indent: 7px;
+	text-align: center;
 }
 .game {
-	text-indent: 22px;
+	text-align: center;
 }
 .score {
-	text-indent: 20px;
+	text-indent: -10px;
+	text-align: center;
 }

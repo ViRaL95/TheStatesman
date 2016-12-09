@@ -216,6 +216,8 @@ return player;
 function getWinOrLoss(text){
 WL=text[2]
 
+console.log(WL);
+
 if(WL.includes("[L]")){
 indices=[];
 	for (i=0; i<WL.length; i++){

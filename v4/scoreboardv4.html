@@ -1,3 +1,6 @@
+<!-- Need to fix parseScore and populateTable as a result of parseScore-->
+
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -111,6 +114,7 @@
 
 	function readRSS() {
 
+		//Clears table to allow it to be repopulated
 		clearTable();
 
 
@@ -128,8 +132,12 @@
 				var index=0;
 				while (r.query.results.item[index] != null) {
 					var game = r.query.results.item[index].title
+					var score = r.query.results.item[index].description
+
+					var x = parseScore(score);
+
 					//Populate table
-					populateTable(game);
+					populateTable(game, score);
 
 
 					index++
@@ -138,7 +146,7 @@
 		})
 }
 
-//Parse date from text. Date is before the first space. Find the index of the space, then parse data before it.
+//Parse date from text. Date is before the first space. Find the index of the space, then parse data before it
 function parseDate(text) {
 	var date;
 	var space = text.indexOf(' ');
@@ -203,7 +211,28 @@ function parseWL(text) {
 	return WL;
 }
 
-function populateTable(game) {
+//Parse Score from text.
+function parseScore(text) {
+
+	var score;
+	var played = parseWL(text);
+	if ((played == 'W') || (played == 'L') || (played== 'T')) {
+
+		var dash = text.indexOf("-");
+
+		score = text.substring(dash-3, dash + 3);
+		score = score.trim();
+
+	}
+
+	else {
+		score = "";
+	}
+
+	return score;
+}
+
+function populateTable(game, score) {
 	var table = document.getElementById("gameTable");
 
 
@@ -226,7 +255,15 @@ function populateTable(game) {
 
 	cell1.innerHTML = parseDate(game).concat("<br>").concat(parseTime(game));
 	cell2.innerHTML = parseMatch(game);
-	cell3.innerHTML = parseWL(game);
+
+	if (parseWL(game) != '-') {
+		cell3.innerHTML = parseWL(game).concat(', ').concat(parseScore(score));
+	}
+	else {
+		cell3.innerHTML = parseWL(game);
+	}
+	
+
 }
 
 function clearTable(){
