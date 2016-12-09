@@ -111,6 +111,8 @@
 
 	function readRSS() {
 
+		clearTable();
+
 
 		//Use Yahoo Query Language (YQL) to read RSS feed from Stony Brook Athletics.
 		YUI().use('yql', function(Y){
@@ -229,10 +231,13 @@ function populateTable(game) {
 
 function clearTable(){
 
-
+	var table = document.getElementById("gameTable");
+	var rowCount = table.rows.length;
+	
+	while(table.rows.length > 0) {
+		table.deleteRow(0);
+	}
 }
-
-
 
 </script>
 
