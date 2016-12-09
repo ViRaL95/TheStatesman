@@ -28,23 +28,8 @@
   		</div>
 		
 		<div id="tbody">			
-						<table>
+			<table id = "gameTable">
 
-				<tr class = "teams">
-					<td colspan = "1" class = "date">11/18 12PM</td>
-					<td colspan = "2" class = "game">SBU vs Boston College</td>
-					<td colspan = "1" class = "score">W, 12-10</td>
-				</tr>
-				<tr class = "teams">
-					<td colspan = "1" class = "date">11/20 10PM</td>
-					<td colspan = "2" class = "game">SBU vs Villanova </td>
-					<td colspan = "1" class = "score">W, 3-2</td>
-				</tr>
-				<tr class = "teams">
-					<td colspan = "1" class = "date">11/22 12PM</td>
-					<td colspan = "2" class = "game">SBU at Loyola Maryland </td>
-					<td colspan = "1" class = "score">L, 2-4</td>
-				</tr>
 	
 			</table>
 		</div>
@@ -52,6 +37,8 @@
 
 
 <script>
+
+	readRSS();
 
 	//changeOptions() changes the sport dropdown menu depending on gender selected
 	function changeOptions() {
@@ -83,77 +70,70 @@
 		if (gender=="Women"){
 			switch (sport) {
 				case 'Basketball':
-				return '12';
-				console.log('12');
-				break;
+					return '12';
+					break;
 				case 'Lacrosse':
-				return 13;
-				console.log('13');
-				break;
+					return '13';
+					break;
 				case 'Soccer':
-				return '14';
-				console.log('14');
-				break;
+					return '14';
+					break;
 				case 'Softball':
-				return '10';
-				console.log('10');
-				break;
+					return '10';
+					break;
 				case 'Volleyball':
-				return '17';
-				console.log('17');
-				break;
+					return '17';
+					break;
 			}
 		}
 
 		if (gender=="Men"){
 			switch (sport) {
 				case 'Baseball':
-				return '1';
-				console.log('1');
-				break;
+					return '1';
+					break;
 				case 'Basketball':
-				return 5;
-				console.log('5');
-				break;
+					return '5';
+					break;
 				case 'Football':
-				return '3';
-				console.log('3');
-				break;
+					return '3';
+					break;
 				case 'Lacrosse':
-				return '6';
-				console.log('6');
-				break;
+					return '6';
+					break;
 				case 'Soccer':
-				return '7';
-				console.log('7');
-				break;
+					return '7';
+					break;
 			}
 		}
 	}
 
 
 	function readRSS() {
-	//Use Yahoo Query Language (YQL) to read RSS feed from Stony Brook Athletics.
-	YUI().use('yql', function(Y){
-		var sportID = returnSportID();
 
-		/*Different sports have different RSS feed. We use the returnSportID() function to return the ID number of the selected
-		and concat to our query request*/
-		var query = 'select title, description from rss where url = "http://stonybrookathletics.com/calendar.ashx/calendar.rss?sport_id='
-		query = query.concat(sportID);
-		query = query.concat('\"');
-		
-		var q = Y.YQL(query, function(r){
-			var index=0;
-			while (r.query.results.item[index] != null) {
-				var game = r.query.results.item[index].title
-				//console.log(game);
-				var x = parseDate(game);
-				console.log(x);
-				index++
-			}
+
+		//Use Yahoo Query Language (YQL) to read RSS feed from Stony Brook Athletics.
+		YUI().use('yql', function(Y){
+			var sportID = returnSportID();
+
+			/*Different sports have different RSS feed. We use the returnSportID() function to return the ID number of the selected
+			and concat to our query request*/
+			var query = 'select title, description from rss where url = "http://stonybrookathletics.com/calendar.ashx/calendar.rss?sport_id='
+			query = query.concat(sportID);
+			query = query.concat('\"');
+			
+			var q = Y.YQL(query, function(r){
+				var index=0;
+				while (r.query.results.item[index] != null) {
+					var game = r.query.results.item[index].title
+					//Populate table
+					populateTable(game);
+
+
+					index++
+				}
+			})
 		})
-	})
 }
 
 //Parse date from text. Date is before the first space. Find the index of the space, then parse data before it.
@@ -167,7 +147,6 @@ function parseDate(text) {
 	if (!date.includes('/')) {
 		date = "ERROR";
 	}
-	console.log(date);
 	return date;
 }
 
@@ -180,26 +159,31 @@ function parseTime(text) {
 		time = text.substring(start + 1, end+1);
 	}
 	else {
-		time = "TBD";
+		time = "";
 	}
 	time = time.trim();
 	return time;
 }
-//Parse location from text. Locates string at or vs and concatenate the location from it.
-function parseGame(text) {
+//Parse location and opponent from text. Locates string at or vs and concatenate the location from it.
+function parseMatch(text) {
 	var location;
-	var check;
+	var opponent;
 	if (text.includes(' at ')) {
 		location = 'at';
-		check = text.substring(text.indexOf(' at '), text.length);
+		opponent = text.substring(text.indexOf(' at ') + 3, text.length);
 	}
 
 	if (text.includes(' vs ')) {
 		location = 'vs';
-		check = text.substring(text.indexOf(' vs '), text.length);
+		opponent = text.substring(text.indexOf(' vs ') + 3, text.length);
 	}
-	check = check.trim();
-	return check;
+
+	opponent = opponent.trim();
+
+	/*RSS feed includes an extra space between vs/at and opponent. 
+	For the sake of saving one pixel, we included this convulated method.*/
+	var match = "SBU ".concat(location).concat(' ').concat(opponent);
+	return match;
 }
 
 //Parse WL from text. Locates brackets and concatenate W or L between it.
@@ -216,6 +200,39 @@ function parseWL(text) {
 	WL = WL.trim();
 	return WL;
 }
+
+function populateTable(game) {
+	var table = document.getElementById("gameTable");
+
+
+	var row = table.insertRow(-1);
+
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1);
+	var cell3 = row.insertCell(2);
+
+	row.className = "teams";
+	
+	cell1.className = "date";
+	cell1.colSpan = "1";
+	
+	cell2.className = "game";
+	cell2.colSpan = "2";
+	
+	cell3.className = "score";
+	cell3.colSpan = "1";
+
+	cell1.innerHTML = parseDate(game).concat(' ').concat(parseTime(game));
+	cell2.innerHTML = parseMatch(game);
+	cell3.innerHTML = parseWL(game);
+}
+
+function clearTable(){
+
+
+}
+
+
 
 </script>
 
