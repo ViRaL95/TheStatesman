@@ -8,9 +8,9 @@
 <h2 id = "scoreboard_heading">SCOREBOARD</h2>
 <div id = "table_wrapper">
 
-		<div id="header">
+		<div id="header" onchange="test();">
 				<form id="left">
-				<select id="gender" onchange="changeOptions()">
+				<select id="gender" onchange="changeOptions();">
 	                <option value="Men">Men</option>
 	                <option value="Women">Women</option>
 	            </select>
@@ -59,14 +59,83 @@
 		}
 	}
 
-	
+	//This function takes reads gender and sport from the dropdown menu and returns an ID number that is correlated to an RSS feed
+	function returnSportID() {
+		var gender = document.getElementById("gender").value;
+		var sport = document.getElementById("sport").value;
+
+		if (gender=="Women"){
+			switch (sport) {
+				case 'Basketball':
+					return '12';
+					console.log('12');
+					break;
+				case 'Lacrosse':
+					return 13;
+					console.log('13');
+					break;
+				case 'Soccer':
+					return '14';
+					console.log('14');
+					break;
+				case 'Softball':
+					return '10';
+					console.log('10');
+					break;
+				case 'Volleyball':
+					return '17';
+					console.log('17');
+					break;
+				}
+		}
+
+		if (gender=="Men"){
+			switch (sport) {
+				case 'Baseball':
+					return '1';
+					console.log('1');
+					break;
+				case 'Basketball':
+					return 5;
+					console.log('5');
+					break;
+				case 'Football':
+					return '3';
+					console.log('3');
+					break;
+				case 'Lacrosse':
+					return '6';
+					console.log('6');
+					break;
+				case 'Soccer':
+					return '7';
+					console.log('7');
+					break;
+				}
+		}
+	}
+
+	function test() {
+	//Use Yahoo Query Language (YQL) to read RSS feed from Stony Brook Athletics.
 	YUI().use('yql', function(Y){
-		var query = 'select * from rss where url = "https://crossorigin.me/http://www.stonybrookathletics.com/calendar.ashx/calendar.rss?sports_id=1"'
+		var sportID = returnSportID();
+
+		/*Different sports have different RSS feed. We use the returnSportID() function to return the ID number of the selected
+		and concat to our query request*/
+		var query = 'select title, description from rss where url = "http://stonybrookathletics.com/calendar.ashx/calendar.rss?sport_id='
+		query = query.concat(sportID);
+		query = query.concat('\"');
+		
 		var q = Y.YQL(query, function(r){
-			console.log(r)
+			var index=0;
+			while (r.query.results.item[index] != null) {
+				var game = r.query.results.item[index].title
+				console.log(game)
+				index++
+			}
 		})
 	})
-
+}
 
 
 </script>
