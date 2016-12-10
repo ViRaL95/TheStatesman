@@ -59,6 +59,8 @@ jQuery(".table").empty();
 //Populate the table with a given sport and a given gender
 function populateTable(sport, gender){
 //AJAX
+var feed="https://crossorigin.me/http://www.stonybrookathletics.com/calendar.ashx/calendar.rss?sports_id=1";
+//AJAX
 /*
 A get request is sent to the given location specified in the feed variable. When the get function retrieves
 the information, it is stored in the data variable. The data variable is then split into a variable for each 
@@ -209,6 +211,8 @@ return player;
 //AFTER FURTHER HANDLING OF THE DATA THIS INFO WILL NOT BE STORED IN THE TABLE.
 function getWinOrLoss(text){
 WL=text[2]
+
+console.log(WL);
 
 if(WL.includes("[L]")){
 indices=[];
