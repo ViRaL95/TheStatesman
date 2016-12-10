@@ -1,5 +1,3 @@
-
-
 var selector=document.getElementById("gender");
 var sport_select=document.getElementById("sport");
 var table=document.getElementsByClassName("table");
@@ -12,7 +10,6 @@ selector.onchange= function(){
 	sport=sport_select.value;
 	if(gender=="Women"){
 		hideFootball();
-
 	}
 	
 	else{
@@ -30,8 +27,7 @@ sport.onchange=function(){
 	
 	else{
 		enableWomen();
-	}
-	
+	}	
 	deleteAllElements();
 	populateTable(sport, gender);
 }
@@ -58,111 +54,109 @@ women.disabled=false;
 //Deletes All Elements From the Table 
 function deleteAllElements(){
 jQuery(".table").empty();
-
 }
-
 
 //Populate the table with a given sport and a given gender
 function populateTable(sport, gender){
-var feed="http://stonybrookathletics.com/calendar.ashx/calendar.rss?sports_id=1";
 //AJAX
-
 /*
 A get request is sent to the given location specified in the feed variable. When the get function retrieves
 the information, it is stored in the data variable. The data variable is then split into a variable for each 
 item element. The data must then be retrieved from each array element, in order to do this the $(this) function 
 retrieves data from each element
 */
-	$.get(feed, function(data){
-			var i=0;
-		$(data).find("item").each(function(){
-		//receives text wherever the item tag occurs.
-			var el=$(this);
-			var text=el.text();
-		//creates row #1 if there are 0 rows. 
+$.ajax({
+url:"http://stonybrookathletics.com/calendar.ashx/calendar.rss?sports_id=1",
+type:"GET",
+crossDomain:true,
+success:function(data){
+var i=0;
+$(data).find("item").each(function(){
+//receives text wherever the item tag occurs.
+	var el=$(this);
+	var text=el.text();
+	console.log(text);
+//creates row #1 if there are 0 rows. 
 
-		//if the text includes your sport name and gender 
-		if(gender=="Women"){
-			if(text.includes(sport) && text.includes(gender)){
-				//split the text by new line. 
-				text=text.split("\n");
-				date=setDateAndTime(text);
-				//see what the team has played against
-				player=playedWho(text);
-				//gets whether the team has won or lost
-				WL=getWinOrLoss(text);
-				if(WL=="NP"){
-				TimeOfGame=getTimeOfGame(text[5]);
-				date+=",";
-				date+=TimeOfGame;
-				}
-				if(date!="NA" && player!="NA"){
-					i++;
-					//populate the table
-					row=table.insertRow(-1);
-					
-					row.className="teams";
-					cell0=row.insertCell(0);
-					cell0.innerHTML=date;
-					cell0.className="date";
-					cell0.colspan="2";
-
-					cell1=row.insertCell(1);
-					cell1.innerHTML=player;
-					cell1.className="game";
-					cell1.colspan="2";
-
-					cell2=row.insertCell(2);
-					cell2.innerHTML=WL;
-					cell2.className="score";
-					cell2.colspan="2";
-				}
-			}
+//if the text includes your sport name and gender 
+if(gender=="Women"){
+	if(text.includes(sport) && text.includes(gender)){
+		//split the text by new line. 
+		text=text.split("\n");
+		date=setDateAndTime(text);
+		//see what the team has played against
+		player=playedWho(text);
+		//gets whether the team has won or lost
+		WL=getWinOrLoss(text);
+		if(WL=="NP"){
+		TimeOfGame=getTimeOfGame(text[5]);
+		date+=",";
+		date+=TimeOfGame;
 		}
-		else{
-				if(text.includes(sport)&& !text.includes("Women")){
-					//split the text by new line. 
-					text=text.split("\n");
-					date=setDateAndTime(text);
+		if(date!="NA"){
+			i++;
+			//populate the table
+			row=table.insertRow(-1);
+			
+			row.className="teams";
+			cell0=row.insertCell(0);
+			cell0.innerHTML=date;
+			cell0.className="date";
+			cell0.colspan="2";
 
-					//see what the team has played against
-					player=playedWho(text);
-					//gets whether the team has won or lost
-					WL=getWinOrLoss(text);
-					if(WL="NP"){
-					TimeOfGame=getTimeOfGame(text[5]);
-					date+=",";
-					date+=TimeOfGame;
-					}
+			cell1=row.insertCell(1);
+			cell1.innerHTML=player;
+			cell1.className="game";
+			cell1.colspan="2";
 
-					if(date!="NA" && player!="NA"){
-						i++;
-						//populate the table
-						row=table.insertRow(-1);
-						row.className="teams";
-
-						cell0=row.insertCell(0);
-						cell0.innerHTML=date;
-						cell0.className="date";
-						cell0.colspan="2";
-
-						cell1=row.insertCell(1);
-						cell1.innerHTML=player;
-						cell1.className="game";
-						cell1.colspan="2";
-
-						cell2=row.insertCell(2);
-						cell2.innerHTML=WL;
-						cell2.className="score";
-						cell2.colspan="2";
-
-					}
-			}
-
-
+			cell2=row.insertCell(2);
+			cell2.innerHTML=WL;
+			cell2.className="score";
+			cell2.colspan="2";
 		}
-		});
-	});
+	}
+}
+else{
+		if(text.includes(sport)&& !text.includes("Women")){
+			//split the text by new line. 
+			text=text.split("\n");
+			date=setDateAndTime(text);
+
+			//see what the team has played against
+			player=playedWho(text);
+			//gets whether the team has won or lost
+			WL=getWinOrLoss(text);
+			if(WL="NP"){
+			TimeOfGame=getTimeOfGame(text[5]);
+			date+=",";
+			date+=TimeOfGame;
+			}
+			if(date!="NA"){
+				i++;
+				//populate the table
+				row=table.insertRow(-1);
+				row.className="teams";
+
+				cell0=row.insertCell(0);
+				cell0.innerHTML=date;
+				cell0.className="date";
+				cell0.colspan="2";
+
+				cell1=row.insertCell(1);
+				cell1.innerHTML=player;
+				cell1.className="game";
+				cell1.colspan="2";
+
+				cell2=row.insertCell(2);
+				cell2.innerHTML=WL;
+				cell2.className="score";
+				cell2.colspan="2";
+			}
+	}
+}
+});
+},
+});
 }
 
 function setDateAndTime(text){

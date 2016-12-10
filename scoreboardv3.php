@@ -1,9 +1,8 @@
-
+<?php header('Access-Control-Allow-Origin: *'); ?>
 <!DOCTYPE HTML>
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="scoreboardv3.css">
-	
 </head>	
 <body>
 <h2 id = "scoreboard_heading">STONY BROOK SEAWOLVES SCOREBOARD</h2>
@@ -36,10 +35,7 @@
 		</div>
 </div>
 
-
-
-<script src="jquery-3.1.1.min.js">
-</script>
+<script src="jquery-3.1.1.min.js"></script>
 <script src="scoreboardv3.js"> </script>
 </body>
 </html>
