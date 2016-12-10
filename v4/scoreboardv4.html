@@ -225,11 +225,16 @@ function parseScore(text) {
 
 		//Some scores show (OT), specifically soccer. Remove to save space.
 		if ((score.includes("(OT)")) || (score.includes("2 OT"))) {
-			console.log(score);
-
 			//Double-check how safe this code is.
 			score = score.substring(0, score.indexOf("OT")-2);
-			console.log(score);
+		}
+
+		if (score.includes("OT")) {
+			score = score.substring(0, score.indexOf("OT"));
+		}
+
+		if (score.includes("PKs")) {
+			score = score.substring(0, score.indexOf("PKs"));
 		}
 
 		score = score.trim();
