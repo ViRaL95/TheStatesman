@@ -1,0 +1,327 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="scoreboardv5.css">
+	<script src="http://yui.yahooapis.com/3.18.1/build/yui/yui-min.js"></script>
+	<script src="jquery-3.1.1.min.js"></script>
+</head>	
+<body>
+
+<h2 id = "scoreboard_heading">STONY BROOK SEAWOLVES SCOREBOARD</h2>
+
+		<div id="header" onchange="readRSS();">		
+				<form id="left">
+				<select id="gender" onchange="changeOptions();">
+	                <option value="Men">Men</option>
+	                <option value="Women" id="Women">Women</option>
+	            </select>
+	            </form>
+
+	        	<form id="right">
+	            <select id="sport">
+					<option value="Baseball">Baseball</option>
+					<option value="Basketball">Basketball</option>
+					<option value="Lacrosse">Lacrosse</option>
+					<option value="Soccer">Soccer</option>
+					<option value="Football" id="Football">Football</option>
+				</select>
+				</form>
+  		</div>	
+  			<div id="tbody">
+				<table class="table">
+					<thead id="thead">
+							<th class="header-cell" colspan="1">Date/Time</th>
+							<th  class="header-cell" colspan="1">Teams</th>
+							<th class="header-cell" colspan="1">Win/Loss</th>
+							<th  class="header-cell" colspan="1" >Home</th>
+							<th  class="header-cell" colspan="1" >Away</th>
+					</thead>
+
+					<tbody>
+
+					</tbody>	
+				</table>
+			</div>	
+</body>
+
+<script>
+var selector=document.getElementById("gender");
+var sport_select=document.getElementById("sport");
+var table=document.getElementsByClassName("table");
+table=table[0];
+var SeaWolves;
+readRSS();
+
+
+function changeOptions(){ 
+console.log("gender changed");
+option=selector.value;
+var women_sport = ['Basketball', 'Lacrosse', 'Soccer', 'Softball', 'Volleyball'];
+var men_sport = ['Baseball', 'Basketball', 'Football', 'Lacrosse', 'Soccer'];
+if(option=="Women"){
+	for(i=0; i<=women_sport.length-1; i++){
+sport_select.options[i]= new Option(women_sport[i]);
+	}	
+}
+else if(option=="Men"){
+	for(i=0; i<=men_sport.length-1; i++){
+	sport_select.options[i]=new Option(men_sport[i]);
+	}
+}
+}
+
+function returnSportID() {
+gender=selector.value;
+sport=sport_select.value;
+		if (gender=="Women"){
+			switch (sport) {
+				case 'Basketball':
+					return '12';
+					break;
+				case 'Lacrosse':
+					return '13';
+					break;
+				case 'Soccer':
+					return '14';
+					break;
+				case 'Softball':
+					return '10';
+					break;
+				case 'Volleyball':
+					return '17';
+					break;
+			}
+		}
+		if (gender=="Men"){
+			switch (sport) {
+				case 'Baseball':
+					return '1';
+					break;
+				case 'Basketball':
+					return '5';
+					break;
+				case 'Football':
+					return '3';
+					break;
+				case 'Lacrosse':
+					return '6';
+					break;
+				case 'Soccer':
+					return '7';
+					break;
+			}
+		}
+	}
+
+
+function deleteAllElements(){
+$(".table").find("tr:gt(0)").remove();
+}
+
+function readRSS() {
+		console.log("reentered table");
+		//Clears table to allow it to be repopulated
+		deleteAllElements();
+		//Use Yahoo Query Language (YQL) to read RSS feed from Stony Brook Athletics.
+		YUI().use('yql', function(Y){
+			var sportID = returnSportID();
+			/*Different sports have different RSS feed. We use the returnSportID() function to return the ID number of the selected
+			and concat to our query request*/
+			var query = 'select title, description, localstartdate, opponentlogo from rss where url = "http://stonybrookathletics.com/calendar.ashx/calendar.rss?sport_id=';
+			query+=sportID+'\"';
+			
+			var q = Y.YQL(query, function(r){
+				var index=0;
+				while (r.query.results.item[index] != null) {
+					var game = r.query.results.item[index].title;
+					var score = r.query.results.item[index].description;
+					var year = r.query.results.item[index].localstartdate;
+					var opponentlogo=r.query.results.item[index].opponentlogo;
+					var seawolves=getSeaWolves();
+					opponentlogo=getOpponentLogo(opponentlogo);
+
+					//Populate table
+					populateTable(game, score, year,seawolves,opponentlogo);
+					index++
+				}
+			})
+		})
+}
+function populateTable(game, score, year, seawolves, opponentlogo) {
+	var row = table.insertRow(-1);
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1);
+	var cell3 = row.insertCell(2);
+	var cell4= row.insertCell(3);
+	var cell5=row.insertCell(4);
+
+	cell1.className="date";
+	cell1.colSpan="1";
+	cell2.className="game";
+	cell2.colSpan="1";
+	cell3.className="score";
+	cell3.colSpan="1";
+	var yearFormat =("/"+parseYear(year));
+	cell1.innerHTML = parseDate(game)+yearFormat+"<br>"+parseTime(game);
+	cell2.innerHTML = parseMatch(game);
+	//Checks if the game was played. If played (W, L, T) then post score. Otherwise, posts -
+	if (parseWL(game) != '-') {
+		cell3.innerHTML = parseWL(game)+", "+parseScore(score);
+	}
+	else {
+		cell3.innerHTML = parseWL(game);
+	}
+	if(homeTeam(game)=="home"){
+	cell4.appendChild(seawolves);
+	cell4.className="SBU";
+	cell4.colSpan="1";
+	cell5.appendChild(opponentlogo);
+	cell5.className="opponent";
+	cell5.colSpan="1";
+	}
+	else if(homeTeam(game)=="away"){
+		cell4.appendChild(opponentlogo);
+		cell4.className="opponent";
+		cell4.colSpan="1";
+		cell5.appendChild(seawolves);
+		cell5.className="SBU";
+		cell5.colSpan="1";
+	}
+
+
+}
+function parseTime(text) {
+	var time;
+	if (text.includes('PM') || text.includes('AM')) {
+		var start = text.indexOf(' ');
+		var end = text.indexOf('M');
+		time = text.substring(start + 1, end+1);
+	}
+	else {
+		time = "";
+	}
+	time = time.trim();
+	return time;
+}
+function parseMatch(text) {
+	var location;
+	var opponent;
+	if (text.includes(' at ')) {
+		opponent = text.substring(text.indexOf(' at ') + 3, text.length);
+		opponent = opponent.trim();
+		match="SBU at "+opponent;
+	}
+	if (text.includes(' vs ')) {
+		opponent = text.substring(text.indexOf(' vs ') + 3, text.length);
+		opponent = opponent.trim();
+		match=opponent+" at SBU";
+	}
+	/*RSS feed includes an extra space between vs/at and opponent. 
+	For the sake of saving one pixel, we included this convulated method.*/
+	return match;
+}
+function parseDate(text) {
+	var date;
+	var space = text.indexOf(' ');
+	date = text.substring(0, space);
+	date = date.trim();
+	//Checks to make sure date is in correct format.
+	if (!date.includes('/')) {
+		date = "ERROR";
+	}
+	return date;
+}
+function parseYear(text){
+	var year = text.substring(2,4);
+	return year;
+}
+ function parseScore(text) {
+	var score;
+	var played = parseWL(text);
+	if ((played == 'W') || (played == 'L') || (played== 'T')) {
+		var first = text.indexOf("\\n");
+		var second = text.indexOf("\\n", first + 1);
+		score = text.substring(first+3, second);
+		//Some scores show (OT), specifically soccer. Remove to save space.
+		if ((score.includes("(OT)")) || (score.includes("2 OT"))) {
+			//Double-check how safe this code is.
+			score = score.substring(0, score.indexOf("OT")-2);
+		}
+		if (score.includes("OT")) {
+			score = score.substring(0, score.indexOf("OT"));
+		}
+		if (score.includes("PKs")) {
+			score = score.substring(0, score.indexOf("PKs"));
+		}
+		score = score.trim();
+	}
+	else {
+		score = "";
+	}
+	return score;
+}
+
+function isEmpty(){
+	//1 because thead is considered a row 
+	if(table.rows.length==1){
+		tbody=document.getElementById("tbody");
+		div=document.createElement("div");
+		div.className="stripes";
+		tbody.appendChild(div);
+	}
+	else{
+		div=document.getElementsByClassName("stripes");
+		table.removeChild(div);
+	}
+}
+
+
+function homeTeam(text){
+if(text.includes(" vs ")){
+	return "home";
+
+}
+else if (text.includes(" at ")){
+	return "away";
+}
+else{
+	return "NA";
+}
+}
+
+function getOpponentLogo(logo){
+width=60;
+height=60;
+image=document.createElement("img");
+image.src=logo;
+image.width=width;
+image.height=height;
+return image
+}
+
+function getSeaWolves(){
+SeaWolves=document.createElement("img");
+SeaWolves.src="http://stonybrookathletics.com/images/logos/site/site.png";
+SeaWolves.width=60;
+SeaWolves.height=60;
+
+return SeaWolves;
+}
+
+function parseWL(text) {
+	var WL;
+	if (text.includes('[')) {
+		var leftBracket = text.indexOf('[');
+		var rightBracket = text.indexOf(']');
+		WL = text.substring(leftBracket+1, rightBracket);
+	}
+	else {
+		WL = '-';
+	}
+	WL = WL.trim();
+	return WL;
+}
+</script>
+
+</html>
