@@ -3,12 +3,11 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="scoreboardv3.css">
-	
+
 </head>	
 <body>
+
 <h2 id = "scoreboard_heading">STONY BROOK SEAWOLVES SCOREBOARD</h2>
-<p id="NP">NP=Not Played</p>
-<div class = "table_wrapper">
 
 		<div id="header">		
 				<form id="left">
@@ -27,14 +26,20 @@
 					<option value="Football" id="Football">Football</option>
 				</select>
 				</form>
-  		</div>
-		
-		<div id="tbody">			
-			<table class="table">
+  		</div>	
+				<table class="table">
+					<thead id="thead">
+							<th class="date">Date/Time</th>
+							<th  class="game" >Teams</th>
+							<th class="score" >Win/Loss</th>
+							<th  class="home" >Home</th>
+							<th  class="opponent" >Away</th>
+					</thead>
 
-			</table>
-		</div>
-</div>
+					<tbody id="tbody">
+
+					</tbody>	
+				</table>
 
 
 
