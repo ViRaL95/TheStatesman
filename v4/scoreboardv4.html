@@ -122,6 +122,10 @@
 			
 					//Populate table
 					populateTable(game, score, year);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 31f104e8104f53d4fa77fd4c521b7b9cce6e87a6
 					index++
 				}
 			})
@@ -200,7 +204,7 @@ function parseScore(text) {
 		if ((score.includes("(OT)")) || (score.includes("2 OT"))) {
 			//Double-check how safe this code is.
 			score = score.substring(0, score.indexOf("OT")-2);
-		}
+
 		if (score.includes("OT")) {
 			score = score.substring(0, score.indexOf("OT"));
 		}
@@ -214,11 +218,15 @@ function parseScore(text) {
 	}
 	return score;
 }
+
 /*Parse year from localStartDate*/
 function parseYear(text){
+
 	var year = text.substring(2,4);
 	return year;
+
 }
+
 function populateTable(game, score, year) {
 	var table = document.getElementById("gameTable");
 	var row = table.insertRow(-1);
@@ -235,7 +243,9 @@ function populateTable(game, score, year) {
 	
 	cell3.className = "score";
 	cell3.colSpan = "1";
+
 	var yearFormat = "/".concat(parseYear(year));
+
 	cell1.innerHTML = parseDate(game).concat(yearFormat).concat("<br>").concat(parseTime(game));
 	cell2.innerHTML = parseMatch(game);
 	//Checks if the game was played. If played (W, L, T) then post score. Otherwise, posts -
